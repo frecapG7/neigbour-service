@@ -7,12 +7,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.SuperBuilder;
 
 
 @MappedSuperclass
 @SuperBuilder
+@Getter
 public abstract class PointOfSale {
 	
 	@Id
@@ -32,4 +34,5 @@ public abstract class PointOfSale {
 	@Column(name="address")
 	public String address;
 	
+
 }
