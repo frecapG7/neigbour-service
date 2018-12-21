@@ -49,7 +49,7 @@ public class PointOfInterest {
 
 
 
-
+    @Getter
     public enum Category{
 
         RESTAURANT("R","Restaurant", "Restaurant"),

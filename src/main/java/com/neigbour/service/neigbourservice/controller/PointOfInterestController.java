@@ -22,11 +22,11 @@ public class PointOfInterestController {
     @Autowired
     PointOfInterestRepository pointOfInterestRepository;
 
-    @GetMapping("/poi/category/{category}")
-    public List<PointOfInterest> getPoIByCategory(@PathVariable String categoryString){
+    @GetMapping("/category/{category}")
+    public List<PointOfInterest> getPoIByCategory(@PathVariable String category){
         try{
-            PointOfInterest.Category category = PointOfInterest.Category.fromString(categoryString);
-            return pointOfInterestRepository.findByCategory(category);
+            PointOfInterest.Category poiCategory = PointOfInterest.Category.fromString(category);
+            return pointOfInterestRepository.findByCategory(poiCategory);
         }catch (IllegalArgumentException e){
             log.error(e.getMessage());
         }
