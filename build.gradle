@@ -1,9 +1,16 @@
 buildscript {
 	ext {
 		springBootVersion = '2.1.1.RELEASE'
+		/* Desjardins config */
+		artifactoryRepoUrl = "https://artifacts.cfzcea.dev.desjardins.com/artifactory/maven-virtual"
+		mavenLocalRepo = System.env.MAVEN_REPO ?: "${System.properties["user.home"]}/.m2/repository"
 	}
 	repositories {
-		mavenCentral()
+
+//		mavenCentral()
+		maven {
+			url = artifactoryRepoUrl
+		}
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -20,7 +27,10 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {
-	mavenCentral()
+	//		mavenCentral()
+	maven {
+		url = artifactoryRepoUrl
+	}
 }
 
 
