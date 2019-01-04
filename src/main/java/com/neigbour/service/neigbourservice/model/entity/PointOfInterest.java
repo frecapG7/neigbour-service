@@ -23,10 +23,6 @@ import javax.persistence.Table;
 @Table(name = "point_of_interest")
 public class PointOfInterest {
 
-
-
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false , updatable = false, unique = true)
@@ -46,7 +42,9 @@ public class PointOfInterest {
     @Enumerated(EnumType.STRING)
     private Category category;
 
-
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "district_id", referencedColumnName = "id")
+    private District district;
 
 
     @Getter
