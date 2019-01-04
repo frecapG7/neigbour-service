@@ -1,6 +1,7 @@
 package com.neigbour.service.neigbourservice.model.repository;
 
 import com.neigbour.service.neigbourservice.model.entity.PointOfInterest;
+import com.neigbour.service.neigbourservice.util.TestConstants;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,20 +32,15 @@ public class PointOfInterestRepositoryTest {
     @Test
     public void should_find_list_of_poi_based_on_category(){
 
-
-        PointOfInterest poi1 = PointOfInterest
-                .builder()
-                .name("Rita")
-                .address("5453 rue du cannard")
-                .category(PointOfInterest.Category.RESTAURANT)
-                .build();
-
-        testEntityManager.persist(poi1);
-
-
+        testEntityManager.persist(TestConstants.RITA);
         List<PointOfInterest> results = pointOfInterestRepository.findByCategory(PointOfInterest.Category.RESTAURANT);
 
         Assert.assertNotNull(results);
+
+    }
+
+    @Test
+    public void should_find_poi_based_on_district(){
 
     }
 

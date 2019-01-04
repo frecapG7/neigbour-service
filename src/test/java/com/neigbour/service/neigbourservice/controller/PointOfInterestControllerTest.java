@@ -2,6 +2,7 @@ package com.neigbour.service.neigbourservice.controller;
 
 import com.neigbour.service.neigbourservice.model.entity.PointOfInterest;
 import com.neigbour.service.neigbourservice.model.repository.PointOfInterestRepository;
+import com.neigbour.service.neigbourservice.util.TestConstants;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,18 +32,11 @@ public class PointOfInterestControllerTest {
     @MockBean
     PointOfInterestRepository pointOfInterestRepository;
 
-    List<PointOfInterest> restaurantList = new ArrayList<>();
-    PointOfInterest restaurant1;
-    PointOfInterest restaurant2;
-    PointOfInterest shop1;
-
-    @Before
-    public void setUp(){
-        buildTestData();
-    }
-
     @Test
     public void should_return_list_poi_by_category() throws Exception{
+        List<PointOfInterest> restaurantList = new ArrayList<>();
+        restaurantList.add(TestConstants.restaurant1);
+        restaurantList.add(TestConstants.restaurant2);
         Mockito.when(pointOfInterestRepository.findByCategory(PointOfInterest.Category.RESTAURANT))
                 .thenReturn(restaurantList);
 
@@ -54,26 +48,4 @@ public class PointOfInterestControllerTest {
         System.out.println(result.getResponse().getContentAsString());
     }
 
-    private void buildTestData(){
-         restaurant1 = PointOfInterest.builder()
-                .id(new Long(5465413))
-                .name("restaurant1")
-                .address("restaurant1")
-                .category(PointOfInterest.Category.RESTAURANT)
-                .build();
-         restaurant2 = PointOfInterest.builder()
-                .id(new Long(5465414))
-                .name("restaurant2")
-                .address("restaurant2")
-                .category(PointOfInterest.Category.RESTAURANT)
-                .build();
-         shop1 = PointOfInterest.builder()
-                .id(new Long(5465415))
-                .name("shop1")
-                .address("shop1")
-                .category(PointOfInterest.Category.SHOP)
-                .build();
-         restaurantList.add(restaurant1);
-         restaurantList.add(restaurant2);
-    }
 }
