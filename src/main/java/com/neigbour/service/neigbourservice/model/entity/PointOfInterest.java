@@ -1,9 +1,7 @@
 package com.neigbour.service.neigbourservice.model.entity;
 
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NonNull;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,6 +17,8 @@ import javax.persistence.Table;
 
 @Getter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "point_of_interest")
 public class PointOfInterest {

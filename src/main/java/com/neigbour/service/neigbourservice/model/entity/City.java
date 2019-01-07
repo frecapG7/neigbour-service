@@ -26,7 +26,7 @@ public class City {
     @Column(name = "nameEn", updatable = true, nullable = false)
     private String nameEn;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "id")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "city")
     private List<District> districtList;
 
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
