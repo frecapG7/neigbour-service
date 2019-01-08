@@ -1,0 +1,21 @@
+spring:
+  jackson:
+    #Ignore null value for JSON generation
+    default-property-inclusion: non_null
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    generate-dll: true
+    show-sql: true
+    properties:
+      hibenate:
+        enable_lazy_load_no_trans: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+logging:
+  file: target/neigbour.log
+  level:
+    root: info
+    com.neigbour.service.neigbourservice: debug
