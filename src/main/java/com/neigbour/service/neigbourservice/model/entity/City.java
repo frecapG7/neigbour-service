@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Getter
@@ -12,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class City {
+public class City implements Serializable {
 
     @Id
     @Column(name = "id", updatable = false, nullable = false)
@@ -31,7 +32,7 @@ public class City {
     @JsonIgnore
     private List<District> districtList;
 
-    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "country_id", referencedColumnName = "id")
     Country country;
 }

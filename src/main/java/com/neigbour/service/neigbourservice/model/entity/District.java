@@ -3,6 +3,7 @@ package com.neigbour.service.neigbourservice.model.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Getter
@@ -11,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class District {
+public class District implements Serializable {
 
     @Id
     @Column(name = "id", updatable = false, nullable = false)
@@ -34,7 +35,7 @@ public class District {
     @Column(name = "descriptionEn", updatable = true, nullable = false)
     private String descriptionEn;
 
-    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "city_id", referencedColumnName = "id")
     private City city;
 

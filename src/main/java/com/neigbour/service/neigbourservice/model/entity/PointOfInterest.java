@@ -12,8 +12,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Setter
 @Getter
@@ -22,7 +24,7 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @Entity
 @Table(name = "point_of_interest")
-public class PointOfInterest {
+public class PointOfInterest implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
