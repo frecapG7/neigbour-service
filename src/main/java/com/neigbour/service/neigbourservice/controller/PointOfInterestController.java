@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "neigbour/api/poi")
+@RequestMapping(value = "/neigbour/api/poi")
 @Slf4j
 public class PointOfInterestController {
 
@@ -25,7 +25,6 @@ public class PointOfInterestController {
 
     @Autowired
     DistrictRepository districtRepository;
-
 
     @GetMapping("/category/{category}")
     public List<PointOfInterest> getPoIByCategory(@PathVariable String category){
@@ -38,19 +37,14 @@ public class PointOfInterestController {
         return null;
     }
 
-    @GetMapping("district/{id}")
+    @GetMapping("/district/{id}")
     public List<PointOfInterest> getPoIByDistrict(@PathVariable Long id){
-        try{
-            Optional<District> district = districtRepository.findById(id);
-            if(!district.isPresent()){
-                log.error("District {} doesn't exist", id);
-                throw new NullPointerException();
-            }
-            return pointOfInterestRepository.findByDistrict(district.get());
-        }catch (IllegalArgumentException e){
-            log.error(e.getMessage());
+        Optional<District> district = districtRepository.findById(id);
+        if(!district.isPresent()){
+            log.error("District {} doesn't exist", id);
+           return null;
         }
-        return null;
+        return pointOfInterestRepository.findByDistrict(district.get());
     }
     @PostMapping("")
     public ResponseEntity<Object> createPointOfInterest(@RequestBody PointOfInterest pointOfInterest){
@@ -62,6 +56,18 @@ public class PointOfInterestController {
 
         return ResponseEntity.created(location).build();
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> updatePointOfInterest(@RequestBody PointOfInterest pointOfInterest, @PathVariable Long id){
+        log.debug("Updating point of interest with id {}", id);
+
+        Optional<PointOfInterest> pointOfInterestOptionnal = pointOfInterestRepository.findById(id);
+        if(!pointOfInterestOptionnal.isPresent()){
+            return ResponseEntity.notFound().build();
+        }
+        pointOfInterest.setId(id);
+        pointOfInterestRepository.save(pointOfInterest);
+        return ResponseEntity.noContent().build();
+    }
 
     @GetMapping("/{id}")
     public PointOfInterest getPointOfInterestById(@PathVariable Long id){
@@ -72,6 +78,12 @@ public class PointOfInterestController {
             return null;
         }
         return pointOfInterest.get();
+    }
+
+    @DeleteMapping("/{id}")
+    public void deletePointOfInterest(@PathVariable Long id){
+        log.debug("Deleting poi with id : {}", id);
+        pointOfInterestRepository.deleteById(id);
     }
 
 

@@ -1,6 +1,7 @@
 package com.neigbour.service.neigbourservice.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.neigbour.service.neigbourservice.model.entity.City;
 import com.neigbour.service.neigbourservice.model.entity.Country;
 import com.neigbour.service.neigbourservice.model.repository.CountryRepository;
 import com.neigbour.service.neigbourservice.util.TestConstants;
@@ -8,6 +9,7 @@ import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -86,6 +88,48 @@ public class CountryControllerTest {
         mockMvc.perform(requestBuilder)
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isCreated());
+    }
+
+    @Test
+    public void should_return_city_list() throws Exception{
+        Country country = TestConstants.CANADA;
+
+        List<City> cityList = new ArrayList<>();
+        cityList.add(TestConstants.MONTREAL);
+        cityList.add(TestConstants.TORONTO);
+        country.setCityList(cityList);
+
+        Mockito.when(countryRepository.findById(Mockito.any())).thenReturn(Optional.of(country));
+
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/neigbour/api/country/{id}/cities", "3456452")
+                .accept(MediaType.APPLICATION_JSON);
+
+        mockMvc.perform(requestBuilder)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[0].nameEn", Matchers.is(TestConstants.MONTREAL.getNameEn())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[0].nameFr", Matchers.is(TestConstants.MONTREAL.getNameFr())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[1].nameEn", Matchers.is(TestConstants.TORONTO.getNameEn())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[1].nameFr", Matchers.is(TestConstants.TORONTO.getNameFr())))
+                ;
+
+    }
+
+    /**
+     * TODO: evolve into exception ??
+     */
+    @Test
+    public void should_return_null_for_country_not_found() throws Exception{
+
+        Mockito.when(countryRepository.findById(Mockito.any())).thenReturn(Optional.empty());
+
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/neigbour/api/country/{id}/cities", "3456452")
+                .accept(MediaType.APPLICATION_JSON);
+
+        mockMvc.perform(requestBuilder)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
     }
 
 

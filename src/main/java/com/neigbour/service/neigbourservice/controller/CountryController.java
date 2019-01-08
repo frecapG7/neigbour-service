@@ -1,5 +1,6 @@
 package com.neigbour.service.neigbourservice.controller;
 
+import com.neigbour.service.neigbourservice.model.entity.City;
 import com.neigbour.service.neigbourservice.model.entity.Country;
 import com.neigbour.service.neigbourservice.model.repository.CountryRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -37,6 +38,16 @@ public class CountryController {
             throw new NullPointerException();
         }
         return country.get();
+    }
+
+    @GetMapping("/{id}/cities")
+    public List<City> getCityList(@PathVariable Long id){
+        log.debug("Asked for list of cities linked to country with id {}" , id);
+        Optional<Country> country = countryRepository.findById(id);
+        if(!country.isPresent()){
+            return null;
+        }
+        return country.get().getCityList();
     }
 
     @PostMapping("")

@@ -45,7 +45,11 @@ public class DistrictControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.nameFr", Matchers.is(TestConstants.STHENRI.getNameFr())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.nameEn", Matchers.is(TestConstants.STHENRI.getNameEn())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.descriptionFr", Matchers.is(TestConstants.STHENRI.getDescriptionFr())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.descriptionEn", Matchers.is(TestConstants.STHENRI.getDescriptionEn())));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.descriptionEn", Matchers.is(TestConstants.STHENRI.getDescriptionEn())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.city.nameFr", Matchers.is(TestConstants.STHENRI.getCity().getNameFr())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.city.nameEn", Matchers.is(TestConstants.STHENRI.getCity().getNameEn())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.city.country.nameFr", Matchers.is(TestConstants.STHENRI.getCity().getCountry().getNameFr())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.city.country.nameEn", Matchers.is(TestConstants.STHENRI.getCity().getCountry().getNameEn())));
     }
 
     @Test

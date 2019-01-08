@@ -2,6 +2,7 @@ package com.neigbour.service.neigbourservice.controller;
 
 import com.neigbour.service.neigbourservice.model.entity.City;
 import com.neigbour.service.neigbourservice.model.entity.Country;
+import com.neigbour.service.neigbourservice.model.entity.District;
 import com.neigbour.service.neigbourservice.model.repository.CityRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.IteratorUtils;
@@ -35,6 +36,19 @@ public class CityController {
         return city.get();
     }
 
+    @GetMapping("/{id}/district")
+    public List<District> getDistrictList(@PathVariable Long id){
+        log.debug("Asked for list of district linked to city with id : {}", id);
+
+        Optional<City> city = cityRepository.findById(id);
+        if(!city.isPresent()){
+            log.error("No city with id {} found", id);
+            return null;
+        }
+        return city.get().getDistrictList();
+
+    }
+
     @PostMapping("")
     public ResponseEntity<Object> createCity(@RequestBody City city){
         City savedCity = cityRepository.save(city);
@@ -43,5 +57,6 @@ public class CityController {
                 .buildAndExpand(savedCity.getId()).toUri();
         return ResponseEntity.created(location).build();
     }
+
 
 }

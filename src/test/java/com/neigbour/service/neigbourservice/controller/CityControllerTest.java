@@ -2,6 +2,7 @@ package com.neigbour.service.neigbourservice.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.neigbour.service.neigbourservice.model.entity.City;
+import com.neigbour.service.neigbourservice.model.entity.District;
 import com.neigbour.service.neigbourservice.model.repository.CityRepository;
 import com.neigbour.service.neigbourservice.util.TestConstants;
 import org.hamcrest.Matchers;
@@ -20,7 +21,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 @RunWith(SpringRunner.class)
@@ -45,7 +48,9 @@ public class CityControllerTest {
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.nameFr", Matchers.is(TestConstants.MONTREAL.getNameFr())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.nameEn", Matchers.is(TestConstants.MONTREAL.getNameEn())));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.nameEn", Matchers.is(TestConstants.MONTREAL.getNameEn())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.country.nameFr", Matchers.is(TestConstants.CANADA.getNameFr())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.country.nameEn", Matchers.is(TestConstants.CANADA.getNameEn())));
     }
 
     @Test
@@ -64,6 +69,46 @@ public class CityControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isCreated());
     }
 
+
+    @Test
+    public void should_return_montreal_district_list() throws Exception{
+        City city = TestConstants.MONTREAL;
+        List<District> districtList = new ArrayList<>();
+        districtList.add(TestConstants.STHENRI);
+        districtList.add(TestConstants.VERDUN);
+        city.setDistrictList(districtList);
+
+        Mockito.when(cityRepository.findById(Mockito.any())).thenReturn(Optional.of(city));
+
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/neigbour/api/city/{id}/district", new Long(11353153))
+                .accept(MediaType.APPLICATION_JSON);
+
+        mockMvc.perform(requestBuilder)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[0].nameFr", Matchers.is(TestConstants.STHENRI.getNameFr())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[0].nameEn", Matchers.is(TestConstants.STHENRI.getNameEn())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[0].city.nameEn", Matchers.is(TestConstants.MONTREAL.getNameEn())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[0].city.nameFr", Matchers.is(TestConstants.MONTREAL.getNameFr())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[1].nameFr", Matchers.is(TestConstants.VERDUN.getNameFr())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[1].nameEn", Matchers.is(TestConstants.VERDUN.getNameEn())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[1].city.nameEn", Matchers.is(TestConstants.MONTREAL.getNameEn())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[1].city.nameFr", Matchers.is(TestConstants.MONTREAL.getNameFr())));
+
+    }
+
+    @Test
+    public void should_return_null_for_city_not_found() throws Exception{
+        Mockito.when(cityRepository.findById(Mockito.any())).thenReturn(Optional.empty());
+
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/neigbour/api/city/{id}/district", new Long(11353153))
+                .accept(MediaType.APPLICATION_JSON);
+
+        mockMvc.perform(requestBuilder)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+    }
 
 
 }
