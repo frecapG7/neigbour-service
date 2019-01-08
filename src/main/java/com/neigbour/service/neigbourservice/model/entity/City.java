@@ -1,5 +1,6 @@
 package com.neigbour.service.neigbourservice.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,6 +28,7 @@ public class City {
     private String nameEn;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "city")
+    @JsonIgnore
     private List<District> districtList;
 
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)

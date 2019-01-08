@@ -1,5 +1,6 @@
 package com.neigbour.service.neigbourservice.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,5 +28,6 @@ public class Country {
     private String nameEn;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "country")
+    @JsonIgnore
     private List<City> cityList;
 }

@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+@Setter
 @Getter
 @Builder
 @AllArgsConstructor
@@ -39,7 +40,11 @@ public class PointOfInterest {
     @Column(name = "uri" , nullable = true, updatable = true)
     private String uri;
 
+    @Column(name = "phone" , nullable = true, updatable = true)
+    private String phoneNumber;
+
     @Enumerated(EnumType.STRING)
+    @Column(name = "category", nullable = false, updatable = false)
     private Category category;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -51,7 +56,9 @@ public class PointOfInterest {
     public enum Category{
 
         RESTAURANT("R","Restaurant", "Restaurant"),
-        SHOP("S","Shop", "Commerce");
+        SHOP("S","Shop", "Commerce"),
+        ASSOCIATION("ASS", "Association" , "Association"),
+        ACTIVITY("AC", "Activité", "Activity");
 
         private String id;
         private String nameFr;
@@ -70,6 +77,10 @@ public class PointOfInterest {
                     return RESTAURANT;
                 case "S":
                     return SHOP;
+                case "ASS":
+                    return ASSOCIATION;
+                case "AC":
+                    return ACTIVITY;
                 default:
                     throw new IllegalArgumentException("Unknown category " + categoryString);
             }
