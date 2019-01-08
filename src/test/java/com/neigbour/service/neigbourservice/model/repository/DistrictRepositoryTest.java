@@ -46,15 +46,23 @@ public class DistrictRepositoryTest {
 
     @Test
     public void should_find_sthenri() {
-        Long id = (Long) this.testEntityManager.persistAndGetId(TestConstants.STHENRI);
+        Long id = (Long) this.testEntityManager.persistAndGetId(District
+                .builder()
+                .nameFr("TestDistrict")
+                .nameEn("TestDistrict")
+                .descriptionEn("DescriptionTest")
+                .descriptionFr("DescriptionTest")
+                .city(TestConstants.MONTREAL)
+                .build()
+        );
         Optional<District> result = districtRepository.findById(id);
 
         Assert.assertEquals(true, result.isPresent());
-        Assert.assertEquals(TestConstants.STHENRI.getNameFr(), result.get().getNameFr());
-        Assert.assertEquals(TestConstants.STHENRI.getNameEn(), result.get().getNameEn());
-        Assert.assertEquals(TestConstants.STHENRI.getDescriptionFr(), result.get().getDescriptionFr());
-        Assert.assertEquals(TestConstants.STHENRI.getDescriptionEn(), result.get().getDescriptionEn());
-        Assert.assertEquals(TestConstants.STHENRI.getCity(), result.get().getCity());
+        Assert.assertEquals("TestDistrict", result.get().getNameFr());
+        Assert.assertEquals("TestDistrict", result.get().getNameEn());
+        Assert.assertEquals("DescriptionTest", result.get().getDescriptionFr());
+        Assert.assertEquals("DescriptionTest", result.get().getDescriptionEn());
+        Assert.assertEquals(TestConstants.MONTREAL, result.get().getCity());
 
     }
 }

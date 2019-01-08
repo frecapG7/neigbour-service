@@ -36,21 +36,28 @@ public class CountryRepositoryTest {
     }
 
     @Test
-    public void should_find_canada(){
-        Country expected = testEntityManager.persist(TestConstants.CANADA);
+    public void should_find_country_by_id(){
+        Long id = (Long) testEntityManager.persistAndGetId(Country
+                .builder()
+                .nameEn("test")
+                .nameFr("test")
+                .build());
 
-        Optional<Country> result = countryRepository.findById(expected.getId());
+        Optional<Country> result = countryRepository.findById(id);
         Assert.assertEquals(true, result.isPresent());
-        Assert.assertEquals(expected.getNameFr() , result.get().getNameFr());
-        Assert.assertEquals(expected.getNameEn() , result.get().getNameEn());
+        Assert.assertEquals("test" , result.get().getNameFr());
+        Assert.assertEquals("test" , result.get().getNameEn());
     }
 
     @Test
     public void should_find_two_countries(){
-        testEntityManager.persist(TestConstants.CANADA);
-        testEntityManager.persist(TestConstants.FRANCE);
-
+//        this.testEntityManager.persist(TestConstants.CANADA);
+//        this.testEntityManager.persist(TestConstants.FRANCE);
+//
         List<Country> results = IteratorUtils.toList(countryRepository.findAll().iterator());
+//        results.stream().forEach(country ->  {
+//            System.out.println(country.getNameEn());
+//        });
         Assert.assertEquals(2, results.size());
     }
 

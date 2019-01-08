@@ -26,25 +26,25 @@ public class CityRepositoryTest {
     @Autowired
     CityRepository cityRepository;
 
-    Country savedCountry;
 
     @Before
     public void setUp(){
-//       savedCountry = countryRepository.save(TestConstants.CANADA);
-//       savedCountry = testEntityManager.persist(TestConstants.CANADA);
-
     }
 
     @Test
-    public void should_find_montreal(){
-        this.testEntityManager.flush();
-        Long id = (Long) this.testEntityManager.persistAndGetId(TestConstants.MONTREAL);
+    public void should_find_city(){
+        Long id = (Long) this.testEntityManager.persistAndGetId(City
+                .builder()
+                .nameEn("Test")
+                .nameFr("Test")
+                .country(TestConstants.CANADA)
+                .build());
         Optional<City> result = cityRepository.findById(id);
 
         Assert.assertEquals(true, result.isPresent());
-        Assert.assertEquals(TestConstants.MONTREAL.getNameFr(), result.get().getNameFr());
-        Assert.assertEquals(TestConstants.MONTREAL.getNameEn(), result.get().getNameEn());
-        Assert.assertEquals(TestConstants.MONTREAL.getCountry(), result.get().getCountry());
+        Assert.assertEquals("Test", result.get().getNameFr());
+        Assert.assertEquals("Test", result.get().getNameEn());
+        Assert.assertEquals(TestConstants.CANADA, result.get().getCountry());
 
     }
 
@@ -52,7 +52,6 @@ public class CityRepositoryTest {
     public void should_save_montreal(){
 
         City expected = TestConstants.MONTREAL;
-        expected.setCountry(savedCountry);
 
         City result = cityRepository.save(expected);
 
