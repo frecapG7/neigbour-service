@@ -40,33 +40,42 @@ public final class TestConstants {
             .descriptionEn("DescriptionEn")
             .city(MONTREAL)
             .build();
+    public static final District VERDUN = District.builder()
+            .nameFr("VerdunFr")
+            .nameEn("VerdunEn")
+            .descriptionFr("DescriptionFr")
+            .descriptionEn("DescriptionEn")
+            .city(MONTREAL)
+            .build();
 
+    // -------------- P O I --------------
     public static final PointOfInterest RITA = PointOfInterest
             .builder()
             .name("Rita")
             .address("5453 rue du cannard")
+            .phoneNumber("(438)989-1000")
             .category(PointOfInterest.Category.RESTAURANT)
             .district(STHENRI)
             .build();
 
-    // -------------- P O I --------------
-    public static PointOfInterest restaurant1 = PointOfInterest.builder()
+    public static PointOfInterest PARISA = PointOfInterest.builder()
             .id(new Long(5465413))
-            .name("restaurant1")
-            .address("restaurant1")
+            .name("PARISA")
+            .address("PARISA")
+            .phoneNumber("(514)451-2563")
             .category(PointOfInterest.Category.RESTAURANT)
+            .district(STHENRI)
             .build();
-    public static PointOfInterest  restaurant2 = PointOfInterest.builder()
+
+    public static PointOfInterest AKA_FUJI = PointOfInterest.builder()
             .id(new Long(5465414))
-            .name("restaurant2")
-            .address("restaurant2")
+            .name("AKA_FUJI")
+            .address("AKA_FUJI")
+            .phoneNumber("(514)524-5781")
             .category(PointOfInterest.Category.RESTAURANT)
+            .district(STHENRI)
             .build();
-    public static PointOfInterest shop1 = PointOfInterest.builder()
-            .id(new Long(5465415))
-            .name("shop1")
-            .address("shop1")
-            .category(PointOfInterest.Category.SHOP)
-            .build();
+
+
 
 }
