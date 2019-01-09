@@ -4,6 +4,7 @@ import com.neigbour.service.neigbourservice.model.entity.City;
 import com.neigbour.service.neigbourservice.model.entity.Country;
 import com.neigbour.service.neigbourservice.model.entity.District;
 import com.neigbour.service.neigbourservice.model.entity.PointOfInterest;
+import com.neigbour.service.neigbourservice.model.entity.PointOfInterestCategory;
 
 import java.util.Arrays;
 
@@ -54,7 +55,7 @@ public final class TestConstants {
             .name("Rita")
             .address("5453 rue du cannard")
             .phoneNumber("(438)989-1000")
-            .category(PointOfInterest.Category.RESTAURANT)
+            .category(PointOfInterestCategory.RESTAURANT)
             .district(STHENRI)
             .build();
 
@@ -63,7 +64,7 @@ public final class TestConstants {
             .name("PARISA")
             .address("PARISA")
             .phoneNumber("(514)451-2563")
-            .category(PointOfInterest.Category.RESTAURANT)
+            .category(PointOfInterestCategory.RESTAURANT)
             .district(STHENRI)
             .build();
 
@@ -72,7 +73,7 @@ public final class TestConstants {
             .name("AKA_FUJI")
             .address("AKA_FUJI")
             .phoneNumber("(514)524-5781")
-            .category(PointOfInterest.Category.RESTAURANT)
+            .category(PointOfInterestCategory.RESTAURANT)
             .district(STHENRI)
             .build();
 

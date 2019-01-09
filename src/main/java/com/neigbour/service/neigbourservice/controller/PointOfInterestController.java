@@ -3,6 +3,7 @@ package com.neigbour.service.neigbourservice.controller;
 
 import com.neigbour.service.neigbourservice.model.entity.District;
 import com.neigbour.service.neigbourservice.model.entity.PointOfInterest;
+import com.neigbour.service.neigbourservice.model.entity.PointOfInterestCategory;
 import com.neigbour.service.neigbourservice.model.repository.DistrictRepository;
 import com.neigbour.service.neigbourservice.model.repository.PointOfInterestRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +30,7 @@ public class PointOfInterestController {
     @GetMapping("/category/{category}")
     public List<PointOfInterest> getPoIByCategory(@PathVariable String category){
         try{
-            PointOfInterest.Category poiCategory = PointOfInterest.Category.fromString(category);
+            PointOfInterestCategory poiCategory = PointOfInterestCategory.fromString(category);
             return pointOfInterestRepository.findByCategory(poiCategory);
         }catch (IllegalArgumentException e){
             log.error(e.getMessage());
@@ -49,6 +50,7 @@ public class PointOfInterestController {
     @PostMapping("")
     public ResponseEntity<Object> createPointOfInterest(@RequestBody PointOfInterest pointOfInterest){
         log.debug("Creating new point of interest");
+        log.debug("category : {}", pointOfInterest.getCategory());
         PointOfInterest savedPointOfInterest = pointOfInterestRepository.save(pointOfInterest);
 
         URI location = ServletUriComponentsBuilder.fromCurrentContextPath().path("/{id}")

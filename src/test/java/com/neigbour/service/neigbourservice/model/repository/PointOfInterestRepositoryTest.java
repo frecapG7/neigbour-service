@@ -2,6 +2,7 @@ package com.neigbour.service.neigbourservice.model.repository;
 
 import com.neigbour.service.neigbourservice.model.entity.District;
 import com.neigbour.service.neigbourservice.model.entity.PointOfInterest;
+import com.neigbour.service.neigbourservice.model.entity.PointOfInterestCategory;
 import com.neigbour.service.neigbourservice.util.TestConstants;
 import org.junit.Assert;
 import org.junit.Before;
@@ -37,7 +38,7 @@ TODO
     @Test
     public void should_find_list_of_poi_based_on_category(){
         //Data from data.sql
-        List<PointOfInterest> results = pointOfInterestRepository.findByCategory(PointOfInterest.Category.RESTAURANT);
+        List<PointOfInterest> results = pointOfInterestRepository.findByCategory(PointOfInterestCategory.RESTAURANT);
         Assert.assertNotNull(results);
 
         //        Assert.assertEquals(3, results.size());
