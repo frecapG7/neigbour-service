@@ -1,6 +1,7 @@
 package com.neigbour.service.neigbourservice.model.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.persistence.Column;
@@ -47,49 +48,12 @@ public class PointOfInterest implements Serializable {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "category", nullable = false, updatable = false)
-    private Category category;
+    private PointOfInterestCategory category;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "district_id", referencedColumnName = "id")
     private District district;
 
-
-    @Getter
-    public enum Category{
-
-        RESTAURANT("R","Restaurant", "Restaurant"),
-        SHOP("S","Shop", "Commerce"),
-        ASSOCIATION("ASS", "Association" , "Association"),
-        ACTIVITY("AC", "Activité", "Activity");
-
-        private String id;
-        private String nameFr;
-        private String nameEn;
-
-        private Category(String id, String nameEn, String nameFr){
-            this.id = id;
-            this.nameEn = nameEn;
-            this.nameFr = nameFr;
-        }
-
-        public static final Category fromString(String categoryString) throws IllegalArgumentException{
-            if(!(categoryString instanceof String)) throw new IllegalArgumentException("Only string are permitted");
-            switch (categoryString){
-                case "R":
-                    return RESTAURANT;
-                case "S":
-                    return SHOP;
-                case "ASS":
-                    return ASSOCIATION;
-                case "AC":
-                    return ACTIVITY;
-                default:
-                    throw new IllegalArgumentException("Unknown category " + categoryString);
-            }
-
-        }
-
-    }
 
 
 }
