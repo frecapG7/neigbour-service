@@ -2,6 +2,8 @@ spring:
   jackson:
     #Ignore null value for JSON generation
     default-property-inclusion: non_null
+    mapper:
+      ACCEPT_CASE_INSENSITIVE_ENUMS: true
   jpa:
     hibernate:
       ddl-auto: create-drop
