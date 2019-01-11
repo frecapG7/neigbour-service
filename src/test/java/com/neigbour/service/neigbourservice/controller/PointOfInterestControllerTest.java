@@ -51,7 +51,7 @@ public class PointOfInterestControllerTest {
         Mockito.when(pointOfInterestRepository.findById(Mockito.any())).thenReturn(Optional.of(TestConstants.RITA));
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(
-                "/neigbour/api/poi/{id}", "121354541")
+                "/neigbour/api/pois/{id}", "121354541")
                 .accept(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(requestBuilder)
@@ -75,7 +75,7 @@ public class PointOfInterestControllerTest {
                 .thenReturn(restaurantList);
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(
-                "/neigbour/api/poi/category/{category}", PointOfInterestCategory.RESTAURANT.getId()).accept(
+                "/neigbour/api/pois/category/{category}", PointOfInterestCategory.RESTAURANT.getId()).accept(
                         MediaType.APPLICATION_JSON);
         mockMvc.perform(requestBuilder)
                 .andDo(MockMvcResultHandlers.print())

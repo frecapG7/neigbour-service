@@ -1,6 +1,7 @@
 package com.neigbour.service.neigbourservice.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.neigbour.service.neigbourservice.controller.assembler.CityResourceAssembler;
 import com.neigbour.service.neigbourservice.model.entity.City;
 import com.neigbour.service.neigbourservice.model.entity.District;
 import com.neigbour.service.neigbourservice.model.repository.CityRepository;
@@ -13,6 +14,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -28,6 +30,7 @@ import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value = CityController.class, secure = false)
+@ComponentScan(basePackages = "com.neigbour.service.neigbourservice.controller.assembler")
 public class CityControllerTest {
 
     @Autowired
@@ -40,8 +43,13 @@ public class CityControllerTest {
     @Test
     public void should_return_montreal() throws Exception{
 
-        Mockito.when(cityRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(TestConstants.MONTREAL));
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/neigbour/api/city/{id}", new Long(11353153))
+        City expected = TestConstants.MONTREAL;
+        List<District> districts = new ArrayList<>();
+        districts.add(TestConstants.VERDUN);
+        districts.add(TestConstants.STHENRI);
+        expected.setDistrictList(districts);
+        Mockito.when(cityRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(expected));
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/neigbour/api/cities/{id}", new Long(11353153))
                 .accept(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(requestBuilder)
@@ -59,7 +67,7 @@ public class CityControllerTest {
         Mockito.when(cityRepository.save(Mockito.any())).thenReturn(TestConstants.MONTREAL);
 
         ObjectMapper objectMapper = new ObjectMapper();
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/neigbour/api/city")
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/neigbour/api/cities")
                 .accept(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(TestConstants.MONTREAL))
                 .contentType(MediaType.APPLICATION_JSON);
@@ -80,20 +88,20 @@ public class CityControllerTest {
 
         Mockito.when(cityRepository.findById(Mockito.any())).thenReturn(Optional.of(city));
 
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/neigbour/api/city/{id}/district", new Long(11353153))
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/neigbour/api/cities/{id}/districts", new Long(11353153))
                 .accept(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(requestBuilder)
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.[0].nameFr", Matchers.is(TestConstants.STHENRI.getNameFr())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.[0].nameEn", Matchers.is(TestConstants.STHENRI.getNameEn())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.[0].city.nameEn", Matchers.is(TestConstants.MONTREAL.getNameEn())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.[0].city.nameFr", Matchers.is(TestConstants.MONTREAL.getNameFr())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.[1].nameFr", Matchers.is(TestConstants.VERDUN.getNameFr())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.[1].nameEn", Matchers.is(TestConstants.VERDUN.getNameEn())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.[1].city.nameEn", Matchers.is(TestConstants.MONTREAL.getNameEn())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.[1].city.nameFr", Matchers.is(TestConstants.MONTREAL.getNameFr())));
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.districtList.[0].nameFr", Matchers.is(TestConstants.STHENRI.getNameFr())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.districtList.[0].nameEn", Matchers.is(TestConstants.STHENRI.getNameEn())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.districtList.[0].city.nameEn", Matchers.is(TestConstants.MONTREAL.getNameEn())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.districtList.[0].city.nameFr", Matchers.is(TestConstants.MONTREAL.getNameFr())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.districtList.[1].nameFr", Matchers.is(TestConstants.VERDUN.getNameFr())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.districtList.[1].nameEn", Matchers.is(TestConstants.VERDUN.getNameEn())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.districtList.[1].city.nameEn", Matchers.is(TestConstants.MONTREAL.getNameEn())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.districtList.[1].city.nameFr", Matchers.is(TestConstants.MONTREAL.getNameFr())));
 
     }
 
@@ -101,7 +109,7 @@ public class CityControllerTest {
     public void should_return_null_for_city_not_found() throws Exception{
         Mockito.when(cityRepository.findById(Mockito.any())).thenReturn(Optional.empty());
 
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/neigbour/api/city/{id}/district", new Long(11353153))
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/neigbour/api/cities/{id}/district", new Long(11353153))
                 .accept(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(requestBuilder)

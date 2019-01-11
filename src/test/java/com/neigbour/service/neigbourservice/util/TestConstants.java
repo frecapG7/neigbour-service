@@ -12,29 +12,34 @@ public final class TestConstants {
 
 
     public static final Country CANADA = Country.builder()
+            .id(new Long(1))
             .nameFr("CanadaFr")
             .nameEn("CanadaEn")
             .cityList(Arrays.asList())
             .build();
 
     public static final Country FRANCE = Country.builder()
+            .id(new Long(2))
             .nameFr("FranceFr")
             .nameEn("FranceEn")
             .cityList(Arrays.asList())
             .build();
     public static final City MONTREAL = City.builder()
+            .id(new Long(1))
             .nameFr("MontrealFr")
             .nameEn("MontrealEn")
             .districtList(Arrays.asList())
             .country(CANADA)
             .build();
     public static final City TORONTO = City.builder()
+            .id(new Long(2))
             .nameFr("TorontoFr")
             .nameEn("TorontoEn")
             .districtList(Arrays.asList())
             .country(CANADA)
             .build();
     public static final District STHENRI = District.builder()
+            .id(new Long(1))
             .nameFr("STHenriFr")
             .nameEn("StHenriEn")
             .descriptionFr("DescriptionFr")
@@ -42,6 +47,7 @@ public final class TestConstants {
             .city(MONTREAL)
             .build();
     public static final District VERDUN = District.builder()
+            .id(new Long(2))
             .nameFr("VerdunFr")
             .nameEn("VerdunEn")
             .descriptionFr("DescriptionFr")
