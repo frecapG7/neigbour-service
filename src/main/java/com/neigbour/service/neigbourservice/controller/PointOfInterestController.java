@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/neigbour/api/poi")
+@RequestMapping(value = "/neigbour/api/pois")
 @Slf4j
 public class PointOfInterestController {
 
