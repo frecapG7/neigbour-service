@@ -1,5 +1,6 @@
 package com.neigbour.service.neigbourservice.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -35,12 +36,13 @@ public class District implements Serializable {
     @Column(name = "descriptionEn", updatable = true, nullable = false)
     private String descriptionEn;
 
+
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "city_id", referencedColumnName = "id")
     private City city;
 
-
-
-
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "district")
+    @JsonIgnore
+    private List<PointOfInterest> pointOfInterestList;
 
 }
