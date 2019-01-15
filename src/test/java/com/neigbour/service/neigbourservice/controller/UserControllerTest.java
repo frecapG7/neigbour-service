@@ -1,16 +1,22 @@
 package com.neigbour.service.neigbourservice.controller;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 import org.apache.commons.collections4.IteratorUtils;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.neigbour.service.neigbourservice.model.entity.User;
 import com.neigbour.service.neigbourservice.model.repository.UserRepository;
@@ -30,13 +36,25 @@ public class UserControllerTest {
 
 	
 	@Before
-	private void setUp(){
-		Mockito.when(userRepositoryMock.findById(Mockito.anyLong())).thenReturn(user1);
-		
+	public void setUp(){
 	}
 	
 	@Test
 	public void should_retrieve_list_of_users(){
+		
+	}
+	
+	@Test
+	public void should_retrieve_user1() throws Exception{
+		Mockito.when(userRepositoryMock.findById(Mockito.anyLong())).thenReturn(Optional.of(user1));
+		
+		//Build test request
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(
+				"/neigbour/api/user/{id}", "124211").accept(MediaType.APPLICATION_JSON);
+		
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+		
+		System.out.println(result.getResponse().getContentAsString());
 		
 	}
 
