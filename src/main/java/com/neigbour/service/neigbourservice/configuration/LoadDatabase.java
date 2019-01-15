@@ -1,19 +1,26 @@
 package com.neigbour.service.neigbourservice.configuration;
 
 
+import com.neigbour.service.neigbourservice.model.entity.Category;
 import com.neigbour.service.neigbourservice.model.entity.City;
 import com.neigbour.service.neigbourservice.model.entity.Country;
 import com.neigbour.service.neigbourservice.model.entity.District;
 import com.neigbour.service.neigbourservice.model.entity.PointOfInterest;
 import com.neigbour.service.neigbourservice.model.entity.PointOfInterestCategory;
+import com.neigbour.service.neigbourservice.model.entity.SubCategory;
+import com.neigbour.service.neigbourservice.model.repository.CategoryRepository;
 import com.neigbour.service.neigbourservice.model.repository.CityRepository;
 import com.neigbour.service.neigbourservice.model.repository.CountryRepository;
 import com.neigbour.service.neigbourservice.model.repository.DistrictRepository;
 import com.neigbour.service.neigbourservice.model.repository.PointOfInterestRepository;
+import com.neigbour.service.neigbourservice.model.repository.SubCategoryRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 @Configuration
 @Slf4j
@@ -24,6 +31,8 @@ public class LoadDatabase {
     CommandLineRunner initDatabase(CountryRepository countryRepository,
                                    CityRepository cityRepository,
                                    DistrictRepository districtRepository,
+                                   CategoryRepository categoryRepository,
+                                   SubCategoryRepository subCategoryRepository,
                                    PointOfInterestRepository pointOfInterestRepository){
         return args -> {
             // ------------------- COUNTRY -------------------------
@@ -36,7 +45,6 @@ public class LoadDatabase {
                     .nameFr("France")
                     .nameEn("France")
                     .build());
-
             // ------------------- CITIES -------------------------
             log.info("Preloading cities into database");
             City montreal = cityRepository.save(City.builder()
@@ -49,9 +57,7 @@ public class LoadDatabase {
                     .nameEn("Toronto")
                     .country(canada)
                     .build());
-
-
-            // ------------------- district -------------------------
+            // ------------------- DISTRICTS -------------------------
             log.info("Preloading districts into database");
             District verdun = districtRepository.save(District.builder()
                     .nameFr("Verdun")
@@ -60,6 +66,72 @@ public class LoadDatabase {
                     .descriptionEn("dqwefwerfgwer")
                     .city(montreal)
                     .build());
+            // ------------------- CATEGORY  -------------------------
+            log.info("Preloading categories into database");
+            Category restaurant = categoryRepository.save(Category.builder()
+                    .nameFr("Restauration")
+                    .nameEn("Restaurant")
+                    .build());
+            Category leisure = categoryRepository.save(Category.builder()
+                    .nameFr("Loisir")
+                    .nameEn("Leisure")
+                    .build());
+            Category health = categoryRepository.save(Category.builder()
+                    .nameFr("Santé")
+                    .nameEn("Health")
+                    .build());
+
+            Category shop =categoryRepository.save(Category.builder()
+                    .nameFr("Commerce")
+                    .nameEn("Shop")
+                    .build());
+            // ------------------- subCategories  -------------------------
+            // ### Restaurant
+            SubCategory fastFood = subCategoryRepository.save(SubCategory.builder()
+                    .nameFr("Fast-Food")
+                    .nameEn("FastFood")
+                    .category(restaurant)
+            .build());
+            SubCategory italianFood = subCategoryRepository.save(SubCategory.builder()
+                    .nameFr("Italien")
+                    .nameEn("Italian")
+                    .category(restaurant)
+            .build());
+            SubCategory montrealFood = subCategoryRepository.save(SubCategory.builder()
+                    .nameFr("Montrealais")
+                    .nameEn("Montreal style")
+                    .category(restaurant)
+            .build());
+            SubCategory frenchFood = subCategoryRepository.save(SubCategory.builder()
+                    .nameFr("Français")
+                    .nameEn("French")
+                    .category(restaurant)
+            .build());
+            SubCategory orientalFood = subCategoryRepository.save(SubCategory.builder()
+                    .nameFr("Oriental")
+                    .nameEn("Oriental")
+                    .category(restaurant)
+            .build());
+            // ### Shop
+            SubCategory clothesShop = subCategoryRepository.save(SubCategory.builder()
+                    .nameFr("Vetements")
+                    .nameEn("Clothing")
+                    .category(shop)
+                    .build()
+            );
+              SubCategory gameShop = subCategoryRepository.save(SubCategory.builder()
+                            .nameFr("Jouet")
+                            .nameEn("Games")
+                            .category(shop)
+                            .build()
+                    );
+              SubCategory hairdressShop = subCategoryRepository.save(SubCategory.builder()
+                            .nameFr("Coiffeur")
+                            .nameEn("Hairdresse")
+                            .category(shop)
+                            .build()
+                    );
+
 
             // ------------------- POI - RESTAURANT -------------------------
             log.info("Preloading districts into database");
