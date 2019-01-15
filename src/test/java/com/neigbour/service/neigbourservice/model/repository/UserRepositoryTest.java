@@ -28,7 +28,7 @@ public class UserRepositoryTest {
 		User result = userRepository.save(user);
 		
 		Assert.assertNotNull(result.getId());
-		Assert.assertEquals(user.getUserName(), result.getUserName());
+		Assert.assertEquals(user.getName(), result.getName());
 		Assert.assertEquals(user.getMail(), result.getMail());
 		Assert.assertEquals(user.getPassword(), result.getPassword());
 		
@@ -40,7 +40,7 @@ public class UserRepositoryTest {
 		
 		testEntityManager.persist(user);
 		
-		Assert.assertNotNull(userRepository.findUserByUserName(user.getUserName()));
+		Assert.assertNotNull(userRepository.findUserByName(user.getName()));
 	}
 	
 	@Test
@@ -56,7 +56,7 @@ public class UserRepositoryTest {
 	private User getTestUser(){
 		return User
 				.builder()
-				.userName("Florian")
+				.name("Florian")
 				.mail("toto@gmail.com")
 				.password("rkrkrk")
 				.build();
