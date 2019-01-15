@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Builder
 @Getter
@@ -19,12 +21,13 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@Column(name = "username" , updatable = true, nullable = false, unique = true)
-	private String userName;
+	@Column(name = "name" , updatable = true, nullable = false, unique = true)
+	private String name;
 	
 	@Column(name = "mail", updatable = true, nullable = false, unique = true)
 	private String mail;
 	
+	@JsonIgnore
 	@Column(name = "password", updatable = true, nullable = false)
 	private String password;
 	

@@ -8,7 +8,7 @@ import com.neigbour.service.neigbourservice.model.entity.User;
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
 	
-	public User findUserByUserName(String userName);
+	public User findUserByName(String userName);
 	
 	public User findUserByMail(String mail);
 
