@@ -11,8 +11,7 @@ public class CategoryResourceAssembler implements ResourceAssembler<Category, Re
 	
 	@Override
 	public Resource<Category> toResource(Category entity) {
-		// TODO Auto-generated method stub
-		return null;
+		return new Resource<>()
 	}
 
 	

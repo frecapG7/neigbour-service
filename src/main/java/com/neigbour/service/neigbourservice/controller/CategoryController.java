@@ -3,6 +3,8 @@ package com.neigbour.service.neigbourservice.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.neigbour.service.neigbourservice.controller.assembler.CategoryResourceAssembler;
+import org.apache.commons.collections4.IteratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
@@ -37,13 +39,12 @@ public class CategoryController {
 
         log.debug("Asked for list of categories");
 
-        Category category = categoryRepository.findAll().iterator()
-        List<Resource<District>> districts = city.getDistrictList().stream()
-                .map(districtResourceAssembler::toResource)
-                .collect(Collectors.toList());
-
-        return new Resources<>(districts,
-                ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(CityController.class).allDistricts(id)).withSelfRel());
+        List<Resource> categories = IteratorUtils.toList(categoryRepository.findAll().iterator())
+				.stream()
+				.map(categoryResourceAssembler::toResource)
+				.collect(Collectors.toList());
+        return new Resources<>(categories,
+                ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(CategoryController.class).allCategories()).withSelfRel());
     
 	}
 }
