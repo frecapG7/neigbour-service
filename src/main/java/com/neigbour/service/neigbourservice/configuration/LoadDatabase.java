@@ -6,7 +6,6 @@ import com.neigbour.service.neigbourservice.model.entity.City;
 import com.neigbour.service.neigbourservice.model.entity.Country;
 import com.neigbour.service.neigbourservice.model.entity.District;
 import com.neigbour.service.neigbourservice.model.entity.PointOfInterest;
-import com.neigbour.service.neigbourservice.model.entity.PointOfInterestCategory;
 import com.neigbour.service.neigbourservice.model.entity.SubCategory;
 import com.neigbour.service.neigbourservice.model.repository.CategoryRepository;
 import com.neigbour.service.neigbourservice.model.repository.CityRepository;

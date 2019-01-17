@@ -2,7 +2,6 @@ package com.neigbour.service.neigbourservice.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.neigbour.service.neigbourservice.model.entity.PointOfInterest;
-import com.neigbour.service.neigbourservice.model.entity.PointOfInterestCategory;
 import com.neigbour.service.neigbourservice.model.repository.DistrictRepository;
 import com.neigbour.service.neigbourservice.model.repository.PointOfInterestRepository;
 import com.neigbour.service.neigbourservice.util.TestConstants;
