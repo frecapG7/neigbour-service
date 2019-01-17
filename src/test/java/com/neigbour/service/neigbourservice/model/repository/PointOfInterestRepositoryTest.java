@@ -13,7 +13,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -26,28 +28,44 @@ public class PointOfInterestRepositoryTest {
     @Autowired
     PointOfInterestRepository pointOfInterestRepository;
 
+
     @Before
     public void setUp(){
 
     }
 
-/*
-TODO
- */
-
     @Test
-    public void should_find_list_of_poi_based_on_category(){
-        //Data from data.sql
-        List<PointOfInterest> results = pointOfInterestRepository.findByCategory(PointOfInterestCategory.RESTAURANT);
-        Assert.assertNotNull(results);
+    public void should_find_poi_by_id(){
+        Long id = (Long) this.testEntityManager.persistAndGetId(
+                PointOfInterest
+                        .builder()
+                        .name("Test")
+                .phoneNumber("Test")
+                .address("Test")
+                .district(TestConstants.VERDUN)
+                .subCategories(Arrays.asList(TestConstants.ITALIANFOOD))
+                .build());
+        Optional<PointOfInterest> result = pointOfInterestRepository.findById(id);
 
-        //        Assert.assertEquals(3, results.size());
+        Assert.assertEquals(true, result.isPresent());
+        Assert.assertEquals("Test", result.get().getName());
+
     }
 
     @Test
-    public void should_find_poi_based_on_district(){
-//        List<PointOfInterest> results = pointOfInterestRepository.findByDistrict(TestConstants.VERDUN);
-//        Assert.assertNotNull(results);
+    public void should_find_by_category(){
+        testEntityManager.persist(PointOfInterest
+                .builder()
+                .name("Test")
+                .phoneNumber("Test")
+                .address("Test")
+                .district(TestConstants.VERDUN)
+                .subCategories(Arrays.asList(TestConstants.ITALIANFOOD))
+                .build());
+        List<PointOfInterest> results = pointOfInterestRepository.findByCategory(TestConstants.RESTAURANT);
+
+        Assert.assertEquals(false, results.isEmpty());
+
     }
 
 

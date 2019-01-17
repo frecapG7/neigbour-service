@@ -16,13 +16,16 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.client.match.MockRestRequestMatchers;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,6 +38,8 @@ public class DistrictControllerTest {
 
     @MockBean
     DistrictRepository districtRepository;
+    @Autowired
+    ObjectMapper objectMapper;
 
 
     @Test
@@ -79,6 +84,34 @@ public class DistrictControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isCreated());
     }
 
+    @Test
+    public void should_return_not_found() throws Exception {
+        Mockito.when(districtRepository.findById(Mockito.any())).thenReturn(Optional.empty());
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/neigbour/api/districts/{id}",
+                "12255")
+                .accept(MediaType.APPLICATION_JSON);
+        mockMvc.perform(requestBuilder)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
+
+    }
+
+    @Test
+    public void should_return_poi_list() throws Exception{
+        District district = TestConstants.VERDUN;
+        district.setPointOfInterestList(Arrays.asList(TestConstants.PARISA, TestConstants.AKA_FUJI));
+
+        Mockito.when(districtRepository.findById(Mockito.any())).thenReturn(Optional.of(district));
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/neigbour/api/districts/{id}/pois",
+                "456400")
+                .accept(MediaType.APPLICATION_JSON);
+        mockMvc.perform(requestBuilder)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.pointOfInterestList[0].name", Matchers.is(TestConstants.PARISA.getName())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.pointOfInterestList[0].address", Matchers.is(TestConstants.PARISA.getAddress())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.pointOfInterestList[0].phoneNumber", Matchers.is(TestConstants.PARISA.getPhoneNumber())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.pointOfInterestList[0].category", Matchers.is(objectMapper.writeValueAsString(TestConstants.PARISA.getCategory()))));
+    }
 
 
 
