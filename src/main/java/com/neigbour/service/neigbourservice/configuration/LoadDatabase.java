@@ -139,7 +139,8 @@ public class LoadDatabase {
                     .name("Chez Boss & Fils")
                     .address("3610 Rue Wellington, Verdun")
                     .uri("chezbossetfils.ca")
-                    .category(PointOfInterestCategory.RESTAURANT)
+                    .category(restaurant)
+                    .subCategories(Arrays.asList(montrealFood))
                     .phoneNumber("(514)508-3457")
                     .district(verdun)
                     .build());
@@ -147,7 +148,8 @@ public class LoadDatabase {
                     .name("Restaurant Wellington")
                     .address("3629 Rue Wellington, Verdun")
                     .uri("restaurantwellington.com")
-                    .category(PointOfInterestCategory.RESTAURANT)
+                    .category(restaurant)
+                    .subCategories(Arrays.asList(montrealFood,fastFood))
                     .phoneNumber("(514)419-1646")
                     .district(verdun)
                     .build());
@@ -155,7 +157,8 @@ public class LoadDatabase {
                     .name("Les Street Monkeys")
                     .address("3625 Rue Wellington, Verdun")
                     .uri("streetmonkeys.ca")
-                    .category(PointOfInterestCategory.RESTAURANT)
+                    .category(restaurant)
+                    .subCategories(Arrays.asList(frenchFood))
                     .phoneNumber("(514)768-1818")
                     .district(verdun)
                     .build());
@@ -163,14 +166,16 @@ public class LoadDatabase {
                     .name("Les Street Monkeys")
                     .address("3625 Rue Wellington, Verdun")
                     .uri("streetmonkeys.ca")
-                    .category(PointOfInterestCategory.RESTAURANT)
+                    .category(restaurant)
+                    .subCategories(Arrays.asList(fastFood))
                     .phoneNumber("(514)768-1818")
                     .district(verdun)
                     .build());
             pointOfInterestRepository.save(PointOfInterest.builder()
                     .name("Rita")
                     .address("3681 Rue Wellington, Verdun")
-                    .category(PointOfInterestCategory.RESTAURANT)
+                    .category(restaurant)
+                    .subCategories(Arrays.asList(italianFood))
                     .phoneNumber("(514)768-1818")
                     .district(verdun)
                     .build());
@@ -178,14 +183,16 @@ public class LoadDatabase {
                     .name("Le grill J''m la Frite")
                     .address("350 Rue Strathmore, Verdun")
                     .uri("jmlafrite.com")
-                    .category(PointOfInterestCategory.RESTAURANT)
+                    .category(restaurant)
+                    .subCategories(Arrays.asList(frenchFood))
                     .phoneNumber("(514)769-3132")
                     .district(verdun)
                     .build());
             pointOfInterestRepository.save(PointOfInterest.builder()
                     .name("Poutine LaFleur")
                     .address("3665 Rue Wellington, Verdun")
-                    .category(PointOfInterestCategory.RESTAURANT)
+                    .category(restaurant)
+                    .subCategories(Arrays.asList(montrealFood, fastFood))
                     .phoneNumber("(514)658-9071")
                     .district(verdun)
                     .build());
@@ -193,21 +200,24 @@ public class LoadDatabase {
                     .name("Parisa")
                     .address("4123 Rue de Verdun, Verdun")
                     .uri("restaurantparisa.ca")
-                    .category(PointOfInterestCategory.RESTAURANT)
+                    .category(restaurant)
+                    .subCategories(Arrays.asList(fastFood))
                     .phoneNumber("(514)768-7777")
                     .district(verdun)
                     .build());
             pointOfInterestRepository.save(PointOfInterest.builder()
                     .name("Pigor")
                     .address("3780 Rue Wellington, Verdun")
-                    .category(PointOfInterestCategory.RESTAURANT)
+                    .category(restaurant)
+                    .subCategories(Arrays.asList(italianFood))
                     .phoneNumber("(514)907-0816")
                     .district(verdun)
                     .build());
             pointOfInterestRepository.save(PointOfInterest.builder()
                     .name("La Queue de Poisson")
                     .address("3779 Rue Wellington, Verdun")
-                    .category(PointOfInterestCategory.RESTAURANT)
+                    .category(restaurant)
+                    .subCategories(Arrays.asList(montrealFood))
                     .phoneNumber("(514)507-8245")
                     .district(verdun)
                     .build());
@@ -215,13 +225,11 @@ public class LoadDatabase {
                     .name("Delhi Express")
                     .address("3876 Rue Wellington, Verdun")
                     .uri("nouveau-delhi.com")
-                    .category(PointOfInterestCategory.RESTAURANT)
+                    .category(restaurant)
+                    .subCategories(Arrays.asList(montrealFood))
                     .phoneNumber("(514)767-6964")
                     .district(verdun)
                     .build());
-
-
-
 
 
         };

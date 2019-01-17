@@ -13,10 +13,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.List;
 
 @Setter
 @Getter
@@ -46,9 +49,17 @@ public class PointOfInterest implements Serializable {
     @Column(name = "phone" , nullable = true, updatable = true)
     private String phoneNumber;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "category", nullable = false, updatable = false)
-    private PointOfInterestCategory category;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    private Category category;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name="POI_SUBCATEGORY",
+            joinColumns = @JoinColumn(name = "poi_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "subcategory_id", referencedColumnName = "id")
+    )
+    private List<SubCategory> subCategories;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "district_id", referencedColumnName = "id")

@@ -27,16 +27,17 @@ public class PointOfInterestController {
     @Autowired
     DistrictRepository districtRepository;
 
-    @GetMapping("/category/{category}")
-    public List<PointOfInterest> getPoIByCategory(@PathVariable String category){
-        try{
-            PointOfInterestCategory poiCategory = PointOfInterestCategory.fromString(category);
-            return pointOfInterestRepository.findByCategory(poiCategory);
-        }catch (IllegalArgumentException e){
-            log.error(e.getMessage());
-        }
-        return null;
-    }
+//    @GetMapping("/category/{category}")
+//    public List<PointOfInterest> getPoIByCategory(@PathVariable String category){
+//        try{
+//            PointOfInterestCategory poiCategory = PointOfInterestCategory.fromString(category);
+//            return pointOfInterestRepository.findByCategory(poiCategory);
+//        }catch (IllegalArgumentException e){
+//            log.error(e.getMessage());
+//        }
+//        return null;
+//    }
+
 
     @GetMapping("/district/{id}")
     public List<PointOfInterest> getPoIByDistrict(@PathVariable Long id){
