@@ -13,6 +13,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -28,6 +29,7 @@ import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value = PointOfInterestController.class, secure = false)
+@ComponentScan(basePackages = "com.neigbour.service.neigbourservice.controller.assembler")
 public class PointOfInterestControllerTest {
 
     @Autowired
@@ -128,7 +130,7 @@ public class PointOfInterestControllerTest {
         Mockito.when(pointOfInterestRepository.findById(Mockito.any())).thenReturn(Optional.of(TestConstants.PARISA));
         Mockito.when(pointOfInterestRepository.save(Mockito.any())).thenReturn(TestConstants.PARISA);
 
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.put("/neigbour/api/poi/{id}", "123455")
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.put("/neigbour/api/pois/{id}", "123455")
                 .accept(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(TestConstants.PARISA))
                 .contentType(MediaType.APPLICATION_JSON);
@@ -141,7 +143,7 @@ public class PointOfInterestControllerTest {
     @Test
     public void should_return_not_found_during_update() throws Exception{
         Mockito.when(pointOfInterestRepository.findById(Mockito.any())).thenReturn(Optional.empty());
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.put("/neigbour/api/poi/{id}", "123455")
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.put("/neigbour/api/pois/{id}", "123455")
                 .accept(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(TestConstants.PARISA))
                 .contentType(MediaType.APPLICATION_JSON);
