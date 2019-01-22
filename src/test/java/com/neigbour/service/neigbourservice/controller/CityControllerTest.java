@@ -106,7 +106,7 @@ public class CityControllerTest {
     }
 
     @Test
-    public void should_return_null_for_city_not_found() throws Exception{
+    public void should_return_not_found_for_city_not_found() throws Exception{
         Mockito.when(cityRepository.findById(Mockito.any())).thenReturn(Optional.empty());
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/neigbour/api/cities/{id}/district", new Long(11353153))
@@ -114,7 +114,7 @@ public class CityControllerTest {
 
         mockMvc.perform(requestBuilder)
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk());
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
 
     }
 

@@ -3,7 +3,6 @@ package com.neigbour.service.neigbourservice.controller;
 
 import com.neigbour.service.neigbourservice.model.entity.District;
 import com.neigbour.service.neigbourservice.model.entity.PointOfInterest;
-import com.neigbour.service.neigbourservice.model.entity.PointOfInterestCategory;
 import com.neigbour.service.neigbourservice.model.repository.DistrictRepository;
 import com.neigbour.service.neigbourservice.model.repository.PointOfInterestRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -27,16 +26,6 @@ public class PointOfInterestController {
     @Autowired
     DistrictRepository districtRepository;
 
-    @GetMapping("/category/{category}")
-    public List<PointOfInterest> getPoIByCategory(@PathVariable String category){
-        try{
-            PointOfInterestCategory poiCategory = PointOfInterestCategory.fromString(category);
-            return pointOfInterestRepository.findByCategory(poiCategory);
-        }catch (IllegalArgumentException e){
-            log.error(e.getMessage());
-        }
-        return null;
-    }
 
     @GetMapping("/district/{id}")
     public List<PointOfInterest> getPoIByDistrict(@PathVariable Long id){
