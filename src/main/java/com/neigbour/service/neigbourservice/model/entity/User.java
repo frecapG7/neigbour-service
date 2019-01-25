@@ -33,9 +33,10 @@ public class User {
 	@Column(name = "password", updatable = true, nullable = false)
 	private String password;
 	
+	@JsonIgnore
 	@Lob
 	@Column(name = "picture", updatable = true, nullable = true)
-	private byte[] picture;
+	private Byte[] picture;
 	
 	
 	
