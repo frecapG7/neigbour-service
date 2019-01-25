@@ -4,10 +4,11 @@ package com.neigbour.service.neigbourservice.model.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
+import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,14 +19,15 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
 import java.io.Serializable;
 import java.util.List;
 
-@Setter
-@Getter
+import javax.persistence.OneToMany;
+
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 @Entity
 @Table(name = "point_of_interest")
 public class PointOfInterest implements Serializable {
@@ -66,5 +68,12 @@ public class PointOfInterest implements Serializable {
     private District district;
 
 
-
+    @OneToMany(fetch = FetchType.LAZY , cascade = CascadeType.ALL, mappedBy = "pointOfInterest")
+    private List<Item> items;
+    
+    //Define list of image of the point 
+    @Lob
+    @ElementCollection
+    @CollectionTable(name = "image",joinColumns=@JoinColumn(name="OWNER_ID"))
+    private List<byte[]> images;
 }
