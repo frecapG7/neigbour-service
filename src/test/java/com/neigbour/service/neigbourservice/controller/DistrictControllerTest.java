@@ -110,7 +110,9 @@ public class DistrictControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.pointOfInterestList[0].name", Matchers.is(TestConstants.PARISA.getName())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.pointOfInterestList[0].address", Matchers.is(TestConstants.PARISA.getAddress())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.pointOfInterestList[0].phoneNumber", Matchers.is(TestConstants.PARISA.getPhoneNumber())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.pointOfInterestList[0].category", Matchers.is(objectMapper.writeValueAsString(TestConstants.PARISA.getCategory()))));
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.pointOfInterestList[0].category.nameFr", Matchers.is(TestConstants.PARISA.getCategory().getNameFr())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.pointOfInterestList[0].category.nameEn", Matchers.is(TestConstants.PARISA.getCategory().getNameEn())));
+
     }
 
 
