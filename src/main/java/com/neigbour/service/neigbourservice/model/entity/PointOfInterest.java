@@ -76,4 +76,6 @@ public class PointOfInterest implements Serializable {
     @ElementCollection
     @CollectionTable(name = "image",joinColumns=@JoinColumn(name="OWNER_ID"))
     private List<byte[]> images;
+    
+    
 }
