@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
 				bytes[i++] = b;
 			}
 
-			user.setPicture(bytes);
+			//user.setPicture(bytes);
 			userRepository.save(user);
 
 		} catch (IOException e) {

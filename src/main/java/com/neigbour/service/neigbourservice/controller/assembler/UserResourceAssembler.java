@@ -15,7 +15,7 @@ public class UserResourceAssembler implements ResourceAssembler<User, Resource<U
 	public Resource<User> toResource(User entity) {
 		return new Resource<User>(entity, 
 				ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(UserController.class).one(entity.getId())).withSelfRel(),
-				ControllerLinkBuilder.linkTo(controller));
+				ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(UserController.class).downloadUserPicture(entity.getId())).withRel("picture"));
 	}
 	
 }

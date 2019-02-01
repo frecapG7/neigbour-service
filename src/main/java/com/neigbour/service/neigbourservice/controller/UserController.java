@@ -75,8 +75,6 @@ public class UserController {
 	@PostMapping("/{id}/picture")
 	public ResponseEntity<Object> updatePicture(@PathVariable Long id, @RequestParam("pictureFile") MultipartFile multipartFile){
 		log.debug("Update profile picture of user {}" , id);
-	
-		userService.saveUserPicture(id, multipartFile);
 		/*
 		 * TODO
 		return ResponseEntity
