@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.neigbour.service.neigbourservice.model.content.ImageContentStore;
 import org.apache.commons.collections4.IteratorUtils;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,8 @@ public class UserController {
 	
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private ImageContentStore contentStore;
 
 	@Autowired
 	private UserResourceAssembler userResourceAssembler;
@@ -70,16 +73,17 @@ public class UserController {
 				.build();
 		
 	}
-	//First try method to post pic
-	//Code from : https://stackoverflow.com/questions/50363639/how-spring-boot-jpahibernate-saves-images
+
 	@PostMapping("/{id}/picture")
-	public ResponseEntity<Object> updatePicture(@PathVariable Long id, @RequestParam("pictureFile") MultipartFile multipartFile){
+	public ResponseEntity<Object> updatePicture(@PathVariable Long id, @RequestParam("pictureFile") MultipartFile multipartFile) throws IOException{
 		log.debug("Update profile picture of user {}" , id);
-		/*
-		 * TODO
-		return ResponseEntity
-				.created(new URI(userResourceAssembler.toResource(us)))
-		*/
+
+		User user = userRepository.findById(id)
+				.orElseThrow(()->new UserNotFoundException(id));
+
+		user.setPicture(multipartFile.getBytes());
+		userRepository.save(user);
+
 		return null;
 	
 	}
