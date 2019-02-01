@@ -30,9 +30,6 @@ public class PointOfInterestController {
     PointOfInterestRepository pointOfInterestRepository;
 
     @Autowired
-    DistrictRepository districtRepository;
-
-    @Autowired
     PointOfInterestResourceAssembler pointOfInterestResourceAssembler;
 
 

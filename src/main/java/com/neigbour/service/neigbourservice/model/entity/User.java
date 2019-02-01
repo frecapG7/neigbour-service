@@ -1,5 +1,6 @@
 package com.neigbour.service.neigbourservice.model.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
@@ -12,10 +13,15 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Entity
+@Getter
+@Setter
 @Builder
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
 public class User {
 
 	@Id
