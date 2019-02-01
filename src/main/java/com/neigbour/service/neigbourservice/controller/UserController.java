@@ -12,7 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.collections4.IteratorUtils;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.hateoas.Resource;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -82,24 +86,17 @@ public class UserController {
 	
 	}
 	
-	//Method will render picture
-	@GetMapping("/{id}/picture")
-	public void renderPicture(@PathVariable Long id, HttpServletResponse response) throws IOException{
-		log.debug("Rendering picture of user : {}", id);
-		
+	
+	@GetMapping(value="/{id}/picture")
+	public ResponseEntity<ByteArrayResource> downloadUserPicture(@PathVariable Long id){
+		log.debug("Download user picture with id: {}", id );
 		User user = userRepository.findById(id)
-				.orElseThrow(() -> new UserNotFoundException(id));
-		if(user.getPicture() != null){
-			byte[] byteArray = new byte[user.getPicture().length];
-			int i = 0;
-			for(byte b : user.getPicture()){
-				byteArray[i++] = b;
-			}
-			
-			response.setContentType("image/jpeg");
-			InputStream inputStream = new ByteArrayInputStream(byteArray);
-			IOUtils.copy(inputStream, response.getOutputStream());
-			
-		}
+				.orElseThrow(()-> new UserNotFoundException(id));
+		ByteArrayResource resource = new ByteArrayResource(user.getPicture());
+		
+		return ResponseEntity.ok()
+				.contentType(MediaType.parseMediaType(MediaType.APPLICATION_OCTET_STREAM_VALUE))
+				.contentLength(resource.contentLength())
+				.body(resource);
 	}
 }
