@@ -6,11 +6,27 @@ import com.neigbour.service.neigbourservice.model.entity.Country;
 import com.neigbour.service.neigbourservice.model.entity.District;
 import com.neigbour.service.neigbourservice.model.entity.PointOfInterest;
 import com.neigbour.service.neigbourservice.model.entity.SubCategory;
+import com.neigbour.service.neigbourservice.model.entity.User;
 
+import java.nio.file.Files;
 import java.util.Arrays;
 
 public final class TestConstants {
 
+    // ------------ USERS ----------
+    public static final User USER_1 = User.builder()
+            .id(new Long(1))
+            .name("user1")
+            .mail("mail1@gmail.com")
+            .password("toto")
+            .build();
+    public static final User USER_2 = User.builder()
+            .id(new Long(2))
+            .name("user2")
+            .mail("mail2@gmail.com")
+            .password("toto")
+            .build();
+    // ------------ COUNTRIES ----------
 
     public static final Country CANADA = Country.builder()
             .id(new Long(1))
@@ -74,7 +90,6 @@ public final class TestConstants {
             .build();
 
 
-
     // -------------- P O I --------------
     public static final PointOfInterest RITA = PointOfInterest.builder()
             .name("Rita")
@@ -104,7 +119,6 @@ public final class TestConstants {
             .subCategories(Arrays.asList(FASTFOOD))
             .district(STHENRI)
             .build();
-
 
 
 }
