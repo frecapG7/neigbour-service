@@ -1,5 +1,6 @@
 package com.neigbour.service.neigbourservice.controller.assembler;
 
+import com.neigbour.service.neigbourservice.controller.ItemController;
 import com.neigbour.service.neigbourservice.controller.PointOfInterestController;
 import com.neigbour.service.neigbourservice.model.entity.PointOfInterest;
 import org.springframework.hateoas.Resource;
@@ -14,6 +15,7 @@ public class PointOfInterestResourceAssembler implements ResourceAssembler<Point
     @Override
     public Resource<PointOfInterest> toResource(PointOfInterest pointOfInterest) {
         return new Resource<PointOfInterest>(pointOfInterest,
-                ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PointOfInterestController.class).getPointOfInterestById(pointOfInterest.getId())).withSelfRel());
+                ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PointOfInterestController.class).getPointOfInterestById(pointOfInterest.getId())).withSelfRel(),
+                ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(ItemController.class).getPoiItems(pointOfInterest.getId())).withRel("items"));
     }
 }

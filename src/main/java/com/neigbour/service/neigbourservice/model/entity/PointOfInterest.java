@@ -2,6 +2,7 @@ package com.neigbour.service.neigbourservice.model.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.CascadeType;
@@ -68,6 +69,7 @@ public class PointOfInterest implements Serializable {
     private District district;
 
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY , cascade = CascadeType.ALL, mappedBy = "pointOfInterest")
     private List<Item> items;
     
