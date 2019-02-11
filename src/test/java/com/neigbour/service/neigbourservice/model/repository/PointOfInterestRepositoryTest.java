@@ -51,21 +51,7 @@ public class PointOfInterestRepositoryTest {
 
     }
 
-    @Test
-    public void should_find_by_category(){
-        testEntityManager.persist(PointOfInterest
-                .builder()
-                .name("Test")
-                .phoneNumber("Test")
-                .address("Test")
-                .district(TestConstants.VERDUN)
-                .subCategories(Arrays.asList(TestConstants.ITALIANFOOD))
-                .build());
-        List<PointOfInterest> results = pointOfInterestRepository.findByCategory(TestConstants.RESTAURANT);
 
-        Assert.assertEquals(false, results.isEmpty());
-
-    }
 
 
 }

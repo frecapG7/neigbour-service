@@ -27,7 +27,11 @@ public class CountryRepositoryTest {
 
     @Test
     public void should_insert_canada(){
-        Country result = countryRepository.save(TestConstants.CANADA);
+        Country result = countryRepository.save(Country
+                .builder()
+                .nameEn(TestConstants.CANADA.getNameEn())
+                .nameFr(TestConstants.CANADA.getNameFr())
+                .build());
 
         Assert.assertNotNull(result.getId());
         Assert.assertEquals(result.getNameEn(), TestConstants.CANADA.getNameEn());
@@ -49,17 +53,9 @@ public class CountryRepositoryTest {
         Assert.assertEquals("test" , result.get().getNameEn());
     }
 
-    @Test
-    public void should_find_two_countries(){
-//        this.testEntityManager.persist(TestConstants.CANADA);
-//        this.testEntityManager.persist(TestConstants.FRANCE);
-//
-        List<Country> results = IteratorUtils.toList(countryRepository.findAll().iterator());
-//        results.stream().forEach(country ->  {
-//            System.out.println(country.getNameEn());
-//        });
-        Assert.assertEquals(2, results.size());
-    }
+
+
+
 
 
 }

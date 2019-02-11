@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -18,6 +19,7 @@ import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class CityRepositoryTest {
 
     @Autowired
@@ -51,8 +53,13 @@ public class CityRepositoryTest {
     @Test
     public void should_save_montreal(){
 
-        City expected = TestConstants.MONTREAL;
+        Country c = this.testEntityManager.persist(Country.builder()
+                .nameEn("test")
+                .nameFr("test")
+                .build());
 
+        City expected = TestConstants.MONTREAL;
+        expected.setCountry(c);
         City result = cityRepository.save(expected);
 
         Assert.assertNotNull(result.getId());

@@ -32,15 +32,24 @@ public class DistrictRepositoryTest {
 
     @Test
     public void should_insert_sthenri() {
-        District expected = TestConstants.STHENRI;
-        District result = districtRepository.save(expected);
+
+        District result = districtRepository.save(
+                District
+                        .builder()
+                        .nameFr(TestConstants.STHENRI.getNameFr())
+                        .nameEn(TestConstants.STHENRI.getNameEn())
+                        .descriptionEn(TestConstants.STHENRI.getDescriptionEn())
+                        .descriptionFr(TestConstants.STHENRI.getDescriptionFr())
+                        .city(TestConstants.STHENRI.getCity())
+                        .build()
+        );
 
         Assert.assertNotNull(result.getId());
-        Assert.assertEquals(expected.getNameFr(), result.getNameFr());
-        Assert.assertEquals(expected.getNameEn(), result.getNameEn());
-        Assert.assertEquals(expected.getDescriptionFr(), result.getDescriptionFr());
-        Assert.assertEquals(expected.getDescriptionEn(), result.getDescriptionEn());
-        Assert.assertEquals(expected.getCity(), result.getCity());
+        Assert.assertEquals(TestConstants.STHENRI.getNameFr(), result.getNameFr());
+        Assert.assertEquals(TestConstants.STHENRI.getNameEn(), result.getNameEn());
+        Assert.assertEquals(TestConstants.STHENRI.getDescriptionFr(), result.getDescriptionFr());
+        Assert.assertEquals(TestConstants.STHENRI.getDescriptionEn(), result.getDescriptionEn());
+        Assert.assertEquals(TestConstants.STHENRI.getCity(), result.getCity());
 
     }
 
