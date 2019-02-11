@@ -107,11 +107,11 @@ public class DistrictControllerTest {
                 .accept(MediaType.APPLICATION_JSON);
         mockMvc.perform(requestBuilder)
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.pointOfInterestList[0].name", Matchers.is(TestConstants.PARISA.getName())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.pointOfInterestList[0].address", Matchers.is(TestConstants.PARISA.getAddress())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.pointOfInterestList[0].phoneNumber", Matchers.is(TestConstants.PARISA.getPhoneNumber())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.pointOfInterestList[0].category.nameFr", Matchers.is(TestConstants.PARISA.getCategory().getNameFr())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.pointOfInterestList[0].category.nameEn", Matchers.is(TestConstants.PARISA.getCategory().getNameEn())));
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.pointOfInterests[0].name", Matchers.is(TestConstants.PARISA.getName())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.pointOfInterests[0].address", Matchers.is(TestConstants.PARISA.getAddress())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.pointOfInterests[0].phoneNumber", Matchers.is(TestConstants.PARISA.getPhoneNumber())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.pointOfInterests[0].category.nameFr", Matchers.is(TestConstants.PARISA.getCategory().getNameFr())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.pointOfInterests[0].category.nameEn", Matchers.is(TestConstants.PARISA.getCategory().getNameEn())));
 
     }
 

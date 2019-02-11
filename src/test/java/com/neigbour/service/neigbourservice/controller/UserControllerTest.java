@@ -97,7 +97,6 @@ public class UserControllerTest {
 
 	@Test
 	public void should_return_a_picture() throws Exception{
-		//TODO : add byte[]
 		User expected = TestConstants.USER_1;
 		File picture = new File(getClass().getClassLoader().getResource("Koala.jpg").getFile());
 		expected.setPicture(Files.readAllBytes(picture.toPath()));

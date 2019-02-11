@@ -57,10 +57,10 @@ public class CountryControllerTest {
         mockMvc.perform(requestBuilder)
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.countryList[0].nameFr", Matchers.is(TestConstants.CANADA.getNameFr())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.countryList[0].nameEn", Matchers.is(TestConstants.CANADA.getNameEn())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.countryList[1].nameFr", Matchers.is(TestConstants.FRANCE.getNameFr())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.countryList[1].nameEn", Matchers.is(TestConstants.FRANCE.getNameEn())));
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.countries[0].nameFr", Matchers.is(TestConstants.CANADA.getNameFr())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.countries[0].nameEn", Matchers.is(TestConstants.CANADA.getNameEn())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.countries[1].nameFr", Matchers.is(TestConstants.FRANCE.getNameFr())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.countries[1].nameEn", Matchers.is(TestConstants.FRANCE.getNameEn())));
     }
 
     @Test
@@ -116,10 +116,10 @@ public class CountryControllerTest {
         mockMvc.perform(requestBuilder)
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.cityList.[0].nameEn", Matchers.is(TestConstants.MONTREAL.getNameEn())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.cityList.[0].nameFr", Matchers.is(TestConstants.MONTREAL.getNameFr())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.cityList.[1].nameEn", Matchers.is(TestConstants.TORONTO.getNameEn())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.cityList.[1].nameFr", Matchers.is(TestConstants.TORONTO.getNameFr())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.cities.[0].nameEn", Matchers.is(TestConstants.MONTREAL.getNameEn())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.cities.[0].nameFr", Matchers.is(TestConstants.MONTREAL.getNameFr())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.cities.[1].nameEn", Matchers.is(TestConstants.TORONTO.getNameEn())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.cities.[1].nameFr", Matchers.is(TestConstants.TORONTO.getNameFr())))
                 ;
 
     }

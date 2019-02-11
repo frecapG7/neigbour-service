@@ -94,14 +94,14 @@ public class CityControllerTest {
         mockMvc.perform(requestBuilder)
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.districtList.[0].nameFr", Matchers.is(TestConstants.STHENRI.getNameFr())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.districtList.[0].nameEn", Matchers.is(TestConstants.STHENRI.getNameEn())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.districtList.[0].city.nameEn", Matchers.is(TestConstants.MONTREAL.getNameEn())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.districtList.[0].city.nameFr", Matchers.is(TestConstants.MONTREAL.getNameFr())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.districtList.[1].nameFr", Matchers.is(TestConstants.VERDUN.getNameFr())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.districtList.[1].nameEn", Matchers.is(TestConstants.VERDUN.getNameEn())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.districtList.[1].city.nameEn", Matchers.is(TestConstants.MONTREAL.getNameEn())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.districtList.[1].city.nameFr", Matchers.is(TestConstants.MONTREAL.getNameFr())));
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.districts.[0].nameFr", Matchers.is(TestConstants.STHENRI.getNameFr())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.districts.[0].nameEn", Matchers.is(TestConstants.STHENRI.getNameEn())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.districts.[0].city.nameEn", Matchers.is(TestConstants.MONTREAL.getNameEn())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.districts.[0].city.nameFr", Matchers.is(TestConstants.MONTREAL.getNameFr())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.districts.[1].nameFr", Matchers.is(TestConstants.VERDUN.getNameFr())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.districts.[1].nameEn", Matchers.is(TestConstants.VERDUN.getNameEn())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.districts.[1].city.nameEn", Matchers.is(TestConstants.MONTREAL.getNameEn())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.districts.[1].city.nameFr", Matchers.is(TestConstants.MONTREAL.getNameFr())));
 
     }
 
