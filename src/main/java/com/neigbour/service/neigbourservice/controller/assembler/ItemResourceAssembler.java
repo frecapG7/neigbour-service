@@ -19,6 +19,7 @@ public class ItemResourceAssembler implements ResourceAssembler<Item, Resource<I
     @Override
     public Resource<Item> toResource(Item item) {
         return new Resource<>(item,
+        		ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(ItemController.class).getItemById(item.getId())).withSelfRel(),
         		ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PointOfInterestController.class).getPointOfInterestById(item.getPointOfInterest().getId())).withRel("poi"));
     }
 }

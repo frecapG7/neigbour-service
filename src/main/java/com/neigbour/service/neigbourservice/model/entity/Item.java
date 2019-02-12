@@ -39,16 +39,20 @@ public class Item implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", nullable = false, updatable = false)
 	private Long id;
-	
+
+	@NonNull
 	@Column(name = "nameFr", nullable = false, updatable = true)
 	private String nameFr;
-	
+
+	@NonNull
 	@Column(name = "nameEn", nullable = false, updatable = true)
 	private String nameEn;
-	
+
+
 	@Column(name = "description", nullable = true, updatable = true)
 	private String description;
-	
+
+	@NonNull
 	@Column(name = "price", nullable = false, updatable = true)
 	private BigDecimal price;
 	

@@ -3,6 +3,7 @@ package com.neigbour.service.neigbourservice.controller;
 
 import com.neigbour.service.neigbourservice.controller.assembler.ItemResourceAssembler;
 import com.neigbour.service.neigbourservice.controller.assembler.PointOfInterestResourceAssembler;
+import com.neigbour.service.neigbourservice.controller.exception.ItemNotfoundException;
 import com.neigbour.service.neigbourservice.controller.exception.PointOfInterestNotFound;
 import com.neigbour.service.neigbourservice.model.entity.Item;
 import com.neigbour.service.neigbourservice.model.entity.PointOfInterest;
@@ -43,6 +44,15 @@ public class ItemController {
 
 
 
+    @GetMapping("/items/{id}")
+    public Resource<Item> getItemById(@PathVariable Long id){
+        log.debug("Asking for item with id {}", id);
+
+        Item item = itemRepository.findById(id)
+                .orElseThrow(() -> new ItemNotfoundException(id));
+        return itemResourceAssembler.toResource(item);
+    }
+
     @GetMapping("/pois/{id}/items")
     public Resources<Resource<Item>> getPoiItems(@PathVariable Long id){
         log.debug("Asking for list of items linked to poi with id {}", id);
@@ -55,8 +65,7 @@ public class ItemController {
                 .map(itemResourceAssembler::toResource)
                 .collect(Collectors.toList());
         return new Resources<>(items,
-                ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(PointOfInterestController.class).getPointOfInterestById(id)).withRel("poi"));
-
+                ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(ItemController.class).getPoiItems(id)).withSelfRel());
 
     }
 
@@ -78,8 +87,6 @@ public class ItemController {
         
         itemRepository.deleteById(id);
         return ResponseEntity.noContent().build();
-        
- 
         
 
     }
