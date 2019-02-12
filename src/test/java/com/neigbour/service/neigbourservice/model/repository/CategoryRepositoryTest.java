@@ -2,6 +2,7 @@ package com.neigbour.service.neigbourservice.model.repository;
 
 
 import com.neigbour.service.neigbourservice.model.entity.Category;
+import com.neigbour.service.neigbourservice.model.entity.SubCategory;
 import com.neigbour.service.neigbourservice.util.TestConstants;
 import org.junit.Assert;
 import org.junit.Before;
@@ -12,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 @RunWith(SpringRunner.class)
@@ -85,7 +87,21 @@ public class CategoryRepositoryTest {
         categoryRepository.deleteById(id);
     }
 
-    //TODO: test update
-
+    @Test
+    public void should_update_a_category() {
+    	Category expected = this.testEntityManager.persistAndFlush(Category
+                .builder()
+                .nameEn(TestConstants.RESTAURANT.getNameEn())
+                .nameFr(TestConstants.RESTAURANT.getNameFr())
+                .build());
+    	
+    	expected.setNameEn("Toto");
+    	expected.setNameFr("Toto");
+    	
+    	Category result = categoryRepository.save(expected);
+    	Assert.assertNotEquals(TestConstants.RESTAURANT.getNameEn(), result.getNameEn());
+    	Assert.assertNotEquals(TestConstants.RESTAURANT.getNameFr(), result.getNameFr());
+    	
+    }
 
 }

@@ -64,7 +64,8 @@ public class CityRepositoryTest {
         Assert.assertEquals(TestConstants.MONTREAL.getNameEn(), result.getNameEn());
         Assert.assertEquals(TestConstants.MONTREAL.getCountry(), result.getCountry());
 
-//        Assert.assertEquals(result, countryRepository.findById(savedCountry.getId()).get().getCityList().get(0));
     }
 
+    
+    
 }
