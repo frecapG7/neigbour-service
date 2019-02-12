@@ -3,6 +3,8 @@ package com.neigbour.service.neigbourservice.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.neigbour.service.neigbourservice.model.entity.District.DistrictBuilder;
+
 import lombok.*;
 
 import javax.persistence.CascadeType;
@@ -27,10 +29,12 @@ import java.util.List;
 
 import javax.persistence.OneToMany;
 
+@Getter
+@Setter
 @Builder
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name = "point_of_interest")
 public class PointOfInterest implements Serializable {
 
     @Id

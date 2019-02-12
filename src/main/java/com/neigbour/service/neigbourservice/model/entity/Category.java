@@ -2,8 +2,15 @@ package com.neigbour.service.neigbourservice.model.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.neigbour.service.neigbourservice.model.entity.District.DistrictBuilder;
+
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,12 +20,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+
+import java.io.Serializable;
 import java.util.List;
 
-@Entity
-@Data
+@Getter
+@Setter
 @Builder
-public class Category {
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+public class Category implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
