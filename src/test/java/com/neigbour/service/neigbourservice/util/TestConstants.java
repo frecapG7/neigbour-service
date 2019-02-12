@@ -4,6 +4,7 @@ import com.neigbour.service.neigbourservice.model.entity.Category;
 import com.neigbour.service.neigbourservice.model.entity.City;
 import com.neigbour.service.neigbourservice.model.entity.Country;
 import com.neigbour.service.neigbourservice.model.entity.District;
+import com.neigbour.service.neigbourservice.model.entity.Item;
 import com.neigbour.service.neigbourservice.model.entity.PointOfInterest;
 import com.neigbour.service.neigbourservice.model.entity.SubCategory;
 import com.neigbour.service.neigbourservice.model.entity.User;
@@ -119,6 +120,9 @@ public final class TestConstants {
             .subCategories(Arrays.asList(FASTFOOD))
             .district(STHENRI)
             .build();
+
+    // ------------ ITEM --------------------------------------
+    
 
 
 }
